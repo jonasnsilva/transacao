@@ -4,15 +4,15 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
 use Illuminate\Support\Facades\DB;
-use Exception;
+use stdClass;
 
 class UserRepository implements IUserRepository
 {
 
 
-    public function store(User $user): bool
+    public function store(User $user): int
     {
-            return DB::table('user')->insert([
+            return DB::table('user')->insertGetId([
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
                 'password' => $user->getPassword(),
@@ -22,7 +22,7 @@ class UserRepository implements IUserRepository
             ]);
     }
 
-    public function exists(string $document, string $email)
+    public function exists(string $document, string $email): bool
     {
 
             return DB::table('user')
@@ -35,7 +35,7 @@ class UserRepository implements IUserRepository
 
     }
 
-    public function find(string $id)
+    public function find(string $id): ?stdClass
     {
             return DB::table('user')->find($id);
 
