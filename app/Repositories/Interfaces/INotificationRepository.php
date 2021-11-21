@@ -5,15 +5,17 @@ namespace App\Repositories\Interfaces;
 
 
 use App\Models\Notification;
-use App\Models\User;
+use stdClass;
 
 interface INotificationRepository
 {
 
-    public function sendTransaction(User $payee, float $value): bool;
+    public function sendTransaction(Notification $notification): bool;
 
-    public function store(Notification $notification);
+    public function store(Notification $notification): int;
 
+    public function find(int $id): ?stdClass;
 
+    public function update(Notification $notification): bool;
 
 }

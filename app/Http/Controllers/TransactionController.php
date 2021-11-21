@@ -33,7 +33,7 @@ class TransactionController extends Controller
             new TransactionRepository(),
             new AuthorizationService(new AuthorizationRepository()),
             $this->userService,
-            new NotificationService(new NotificationRepository())
+            new NotificationService(new NotificationRepository(), $this->userService)
         );
     }
 

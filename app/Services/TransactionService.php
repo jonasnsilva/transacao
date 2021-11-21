@@ -41,19 +41,17 @@ class TransactionService implements ITransactionService
     {
         if($this->validateTransaction($payer, $value))
         {
-            DB::beginTransaction();
+            DB::transaction(function () use ($payer,$payee, $value) {
+                $this->userService->removeValue($payer, $value);
+                $this->userService->addValue($payee, $value);
 
-            $this->userService->removeValue($payer, $value);
-            $this->userService->addValue($payee, $value);
+                if ($this->repository->store(new Transaction(
+                    ["value" => $value, "payer" => $payer, "payee" => $payee]
+                ))) {
+                    $this->notificationService->sendTransaction($payer, $payee, $value);
+                }
 
-            if($this->repository->store(new Transaction(
-                ["value" => $value, "payer" => $payer, "payee" => $payee]
-            )))
-            {
-                $this->notificationService->sendTransaction($payee, $value, NotificationTypeEnum::TRANSACTION);
-            }
-
-            DB::commit();
+            });
 
             return response()->json(['code' => '200', 'message' => 'Transação realizada com sucesso!']);
         }

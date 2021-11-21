@@ -5,6 +5,7 @@ namespace App\Models;
 
 class Transaction
 {
+    private ?int $id;
     private float $value;
     private User $payee;
     private User $payer;
@@ -15,6 +16,16 @@ class Transaction
         $this->value = $transaction["value"];
         $this->payer = $transaction["payer"];
         $this->payee = $transaction["payee"];
+        $this->id = array_key_exists('id', $transaction) ? $transaction["id"] : null;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
