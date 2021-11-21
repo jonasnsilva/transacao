@@ -21,7 +21,7 @@ class UserService implements IUserService
        $this->repository = $repository;
     }
 
-    public function store(User $user): bool
+    public function store(User $user): int
     {
             if ($this->repository->exists($user->getDocument(), $user->getEmail())) {
                 throw new UserException('Já existe um usuário com esse documento ou email.');
@@ -46,13 +46,13 @@ class UserService implements IUserService
         return $this->repository->update($user);
     }
 
-    public function addValue(User $user, float $value)
+    public function addValue(User $user, float $value): bool
     {
         $user->updateBalance($user->getBalance() + $value);
         return $this->repository->update($user);
     }
 
-    public function removeValue(User $user, float $value)
+    public function removeValue(User $user, float $value): bool
     {
         $user->updateBalance($user->getBalance() - $value);
         return $this->repository->update($user);
