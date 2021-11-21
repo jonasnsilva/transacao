@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Services\UserService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -49,6 +51,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if($exception instanceof ValidationException)
+        {
+            return response()->json([
+                'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Os dados fornecidos são inválidos.',
+                'errors' => $exception->errors()],
+                Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
         return parent::render($request, $exception);
     }
 }
