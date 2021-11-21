@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 interface IUserService
 {
 
-    public function store(User $user): JsonResponse;
+    public function store(User $user): bool;
 
     public function find(string $id): User;
 

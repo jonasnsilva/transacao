@@ -22,13 +22,19 @@ class UserController extends Controller
         $this->userService = new UserService(new UserRepository());
     }
 
-    public function store(StoreUserRequest $request): JsonResponse
+    public function store(StoreUserRequest $request): ?JsonResponse
     {
         try {
 
             $errors = $request->validate();
             if (is_null($errors)) {
-                return $this->userService->store(new User($request->toArray()));
+                if($this->userService->store(new User($request->toArray())))
+                {
+                    return response()->json([
+                        'code' => Response::HTTP_CREATED,
+                        'message' => 'Usuário cadastrado com sucesso.'
+                    ], Response::HTTP_CREATED);
+                }
             } else {
                 return $errors;
             }

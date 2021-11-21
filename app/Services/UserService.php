@@ -21,18 +21,12 @@ class UserService implements IUserService
        $this->repository = $repository;
     }
 
-    public function store(User $user): JsonResponse
+    public function store(User $user): bool
     {
             if ($this->repository->exists($user->getDocument(), $user->getEmail())) {
                 throw new UserException('Já existe um usuário com esse documento ou email.');
             } else {
-                if($this->repository->store($user))
-                {
-                    return response()->json([
-                        'code' => Response::HTTP_CREATED,
-                        'message' => 'Usuário cadastrado com sucesso'
-                    ], Response::HTTP_CREATED);
-                }
+                return $this->repository->store($user);
             }
     }
 
