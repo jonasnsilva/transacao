@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Anik\Form\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class StoreUserRequest extends FormRequest
 {
@@ -46,7 +45,7 @@ class StoreUserRequest extends FormRequest
             'min' => 'O campo :attribute deve ter pelo menos :min caracteres.',
             'email' => 'O campo :attribute deve ser do tipo e-mail.',
             'string' => 'O campo :attribute deve ser do tipo string.',
-            'max' => 'O campo :attribute não pode ter mais de 1 caracteres',
+            'max' => 'O campo :attribute não pode ter mais do que :max caracteres',
             'numeric' => 'O campo :attribute deve ser do tipo númerico.'
         ];
     }
