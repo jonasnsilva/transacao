@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  php:
+    container_name: backend
+    image: webdevops/php-apache-dev:7.4
+    ports:
+      - 8040:80
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      TRANSACAO_DB_HOST: mysql
+      TRANSACAO_DB_CONNECTION: mysql
+      TRANSACAO_DB_DATABASE: transacao
+      TRANSACAO_DB_USER: root
+      TRANSACAO_DB_PASSWORD: Phj29x7l
+      TRANSACAO_DB_PORT: 3306
+    networks:
+      - network
+  mysql:
+    container_name: db
+    image: mysql
+    ports:
+      - 3303:3306
+    environment:
+      MYSQL_DATABASE: transacao
+      MYSQL_ROOT_PASSWORD: Phj29x7l
+      MYSQL_USER: transacao
+      MYSQL_PASSWORD: 25199128
+    networks:
+      - network
+networks:
+  network:
+    driver: bridge
+
+
