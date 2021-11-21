@@ -23,8 +23,16 @@ class UserApiTest extends TestCase
     }
 
 
-    public function testRegisterUserSuccessfully()
+    public function testRegisterUserCommomSuccessfully()
     {
+        $this->post('/api/user', $this->user)
+            ->seeJson(['code' => Response::HTTP_CREATED, 'message' => 'Usuário cadastrado com sucesso.'])
+            ->assertResponseStatus(Response::HTTP_CREATED);
+    }
+
+    public function testRegisterUserShopKeeperSuccessfully()
+    {
+        $this->user["user_type"] = "S";
         $this->post('/api/user', $this->user)
             ->seeJson(['code' => Response::HTTP_CREATED, 'message' => 'Usuário cadastrado com sucesso.'])
             ->assertResponseStatus(Response::HTTP_CREATED);
