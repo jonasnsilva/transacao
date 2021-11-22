@@ -54,7 +54,7 @@ class UserRepository implements IUserRepository
                 ->where('id', $user->getId())
                 ->update([
                     'name' => $user->getName(),
-                    'email' => $user->getPassword(),
+                    'email' => $user->getEmail(),
                     'user_type' => $user->getUserType(),
                     'balance' => $user->getBalance()
                 ]);
