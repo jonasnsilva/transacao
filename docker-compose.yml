@@ -19,7 +19,7 @@ services:
       - network
   mysql:
     container_name: db
-    image: mysql
+    image: mysql:8.0
     ports:
       - 3303:3306
     environment:
