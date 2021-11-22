@@ -24,7 +24,7 @@ class StoreTransactionRequest extends FormRequest
     protected function rules(): array
     {
         return [
-            'value' => 'required|numeric',
+            'value' => 'required|numeric|min:1',
             'id_payer' => 'required|integer',
             'id_payee' => 'required|integer',
         ];
@@ -40,7 +40,8 @@ class StoreTransactionRequest extends FormRequest
         return [
             'required' => 'O campo :attribute é obrigatório.',
             'integer' => 'O campo :attribute deve ter do tipo inteiro.',
-            'numeric' => 'O campo :attribute deve ser do tipo númerico.'
+            'numeric' => 'O campo :attribute deve ser do tipo númerico.',
+            'min' => 'O campo :attribute deve ter pelo menos :min caracteres.',
         ];
     }
 }

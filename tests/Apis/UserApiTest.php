@@ -1,23 +1,26 @@
 <?php
 
+
+
 use Illuminate\Http\Response;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class UserApiTest extends TestCase
 {
 
+    use DatabaseTransactions;
     protected array $user;
-    protected $faker;
 
     protected function setUp(): void
     {
-        $this->faker = Faker\Factory::create('pt_BR');
+        $faker = Faker\Factory::create('pt_BR');
         $this->user = [
-            'name' => $this->faker->name,
-            'email'=> $this->faker->email,
-            'password' => $this->faker->password(8,10),
+            'name' => $faker->name,
+            'email'=> $faker->email,
+            'password' => $faker->password(8,10),
             'user_type' => 'C',
-            'document' => $this->faker->cpf(false),
-            'balance' => $this->faker->numerify("##.#")
+            'document' => $faker->cpf(false),
+            'balance' => $faker->numerify("##.#")
         ];
         parent::setUp();
     }

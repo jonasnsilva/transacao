@@ -5,9 +5,12 @@ use App\Models\User;
 use App\Services\Interfaces\IUserService;
 use App\Services\UserService;
 use App\Repositories\UserRepository;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class UserServiceTest extends TestCase
 {
+
+    use DatabaseTransactions;
 
     private $user;
     private IUserService $userService;
@@ -30,9 +33,15 @@ class UserServiceTest extends TestCase
     }
 
 
-    public function testStoreUserSuccessfully()
+    public function testStoreUserCommomSuccessfully()
     {
 
+        $this->assertIsInt($this->userService->store(new User($this->user)));
+    }
+
+    public function testStoreUserShopKeeperSuccessfully()
+    {
+        $this->user["user_type"] = "S";
         $this->assertIsInt($this->userService->store(new User($this->user)));
     }
 
@@ -57,7 +66,7 @@ class UserServiceTest extends TestCase
     {
         $this->expectException(UserException::class);
         $this->expectExceptionMessage('Usuário não encontrado.');
-        $this->userService->find(8000);
+        $this->userService->find(0);
     }
 
     public function testUpdateUserSuccessfully()

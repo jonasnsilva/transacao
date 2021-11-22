@@ -8,5 +8,5 @@ use App\Models\Transaction;
 
 interface ITransactionRepository
 {
-    public function store(Transaction $transaction);
+    public function store(Transaction $transaction): int;
 }

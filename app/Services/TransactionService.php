@@ -15,6 +15,7 @@ use App\Services\Interfaces\IAuthorizationService;
 use App\Services\Interfaces\INotificationService;
 use App\Services\Interfaces\ITransactionService;
 use App\Services\Interfaces\IUserService;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class TransactionService implements ITransactionService
@@ -37,23 +38,25 @@ class TransactionService implements ITransactionService
         $this->notificationService = $notificationService;
     }
 
-    public function store(User $payer, User $payee, $value)
+    public function store(User $payer, User $payee, $value): int
     {
         if($this->validateTransaction($payer, $value))
         {
-            DB::transaction(function () use ($payer,$payee, $value) {
+            return DB::transaction(function () use ($payer,$payee, $value) {
                 $this->userService->removeValue($payer, $value);
                 $this->userService->addValue($payee, $value);
 
-                if ($this->repository->store(new Transaction(
+                $id_transaction = $this->repository->store(new Transaction(
                     ["value" => $value, "payer" => $payer, "payee" => $payee]
-                ))) {
+                ));
+                if ($id_transaction)
+                {
                     $this->notificationService->sendTransaction($payer, $payee, $value);
                 }
 
-            });
+                return $id_transaction;
 
-            return response()->json(['code' => '200', 'message' => 'Transação realizada com sucesso!']);
+            });
         }
     }
 

@@ -16,6 +16,7 @@ use App\Services\NotificationService;
 use App\Services\TransactionService;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,7 @@ class TransactionController extends Controller
         );
     }
 
-    public function store(StoreTransactionRequest $request)
+    public function store(StoreTransactionRequest $request): JsonResponse
     {
 
         try {
@@ -47,7 +48,10 @@ class TransactionController extends Controller
                 $payer = $this->userService->find($request->id_payer);
                 $payee = $this->userService->find($request->id_payee);
 
-                return $this->transactionService->store($payer, $payee,$request->value);
+                if($this->transactionService->store($payer, $payee,$request->value))
+                {
+                    return response()->json(['code' => Response::HTTP_OK, 'message' => 'Transação realizada com sucesso!']);
+                }
             } else {
                 return $errors;
             }

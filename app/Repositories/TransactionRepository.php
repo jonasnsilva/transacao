@@ -10,18 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionRepository implements ITransactionRepository
 {
-    public function store(Transaction $transaction)
+    public function store(Transaction $transaction): int
     {
-        try {
-        return DB::table('transaction')->insert([
+        return DB::table('transaction')->insertGetId([
                 'value' => $transaction->getValor(),
                 'id_payer' => $transaction->getPayer()->getId(),
                 'id_payee' => $transaction->getPayee()->getId()
             ]);
-        } catch (\Exception $exception)
-        {
-            return false;
-        }
     }
 
 }

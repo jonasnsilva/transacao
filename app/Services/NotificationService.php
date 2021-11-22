@@ -37,11 +37,11 @@ class NotificationService implements INotificationService
     {
 
        $notification = new Notification([
-           "type" => NotificationTypeEnum::TRANSACTION,
-           "send" => SendNotificationEnum::NO,
-           "user" => $payee,
-           "title" => "Você recebeu uma transferência.",
-           "message" => "Você recebeu uma transferência de {$payer->getName()} no valor de {$value} R$."]);
+           'type' => NotificationTypeEnum::TRANSACTION,
+           'send' => SendNotificationEnum::NO,
+           'user' => $payee,
+           'title' => 'Você recebeu uma transferência.',
+           'message' => "Você recebeu uma transferência de {$payer->getName()} no valor de {$value} R$."]);
 
         $notification->setSend(
             $this->repository->sendTransaction($notification) ?
