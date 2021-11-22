@@ -26,14 +26,14 @@ class UserApiTest extends TestCase
     }
 
 
-    public function testRegisterUserCommomSuccessfully()
+    public function testRegisterUserCommomSuccess()
     {
         $this->post('/api/user', $this->user)
             ->seeJson(['code' => Response::HTTP_CREATED, 'message' => 'Usuário cadastrado com sucesso.'])
             ->assertResponseStatus(Response::HTTP_CREATED);
     }
 
-    public function testRegisterUserShopKeeperSuccessfully()
+    public function testRegisterUserShopKeeperSuccess()
     {
         $this->user["user_type"] = "S";
         $this->post('/api/user', $this->user)
@@ -41,7 +41,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_CREATED);
     }
 
-    public function testExistingUserRegistrationFailed()
+    public function testExistingUserRegistrationFail()
     {
         $this->post('/api/user', $this->user);
         $this->post('/api/user', $this->user)
@@ -49,7 +49,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredEmailUserRegistrationFailed()
+    public function testRequiredEmailUserRegistrationFail()
     {
         $this->user["email"] = "";
         $this->post('/api/user', $this->user)
@@ -57,7 +57,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredDocumentUserRegistrationFailed()
+    public function testRequiredDocumentUserRegistrationFail()
     {
         $this->user["document"] = "";
         $this->post('/api/user', $this->user)
@@ -65,7 +65,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredNameUserRegistrationFailed()
+    public function testRequiredNameUserRegistrationFail()
     {
         $this->user["name"] = "";
         $this->post('/api/user', $this->user)
@@ -73,7 +73,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredUserTypeUserRegistrationFailed()
+    public function testRequiredUserTypeUserRegistrationFail()
     {
         $this->user["user_type"] = "";
         $this->post('/api/user', $this->user)
@@ -81,7 +81,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredPasswordUserRegistrationFailed()
+    public function testRequiredPasswordUserRegistrationFail()
     {
         $this->user["password"] = "";
         $this->post('/api/user', $this->user)
@@ -89,7 +89,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredBalanceUserRegistrationFailed()
+    public function testRequiredBalanceUserRegistrationFail()
     {
         $this->user["balance"] = "";
         $this->post('/api/user', $this->user)
@@ -97,7 +97,7 @@ class UserApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testNegativeBalanceUserRegistrationFailed()
+    public function testNegativeBalanceUserRegistrationFail()
     {
         $this->user["balance"] = -1;
         $this->post('/api/user', $this->user)

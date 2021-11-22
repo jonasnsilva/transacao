@@ -48,7 +48,7 @@ class TransactionRepositoryTest extends TestCase
         parent::setUp();
     }
 
-    public function testStoreTransactionSuccessfully()
+    public function testStoreTransactionSuccess()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));

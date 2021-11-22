@@ -56,7 +56,7 @@ class NotificationServiceTest extends TestCase
         parent::setUp();
     }
 
-    public function testSendFailedTransactionSuccessfully()
+    public function testSendFailedTransactionSuccess()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));

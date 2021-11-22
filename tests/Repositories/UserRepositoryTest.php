@@ -30,13 +30,13 @@ class UserRepositoryTest extends TestCase
         parent::setUp();
     }
 
-    public function testStoreUserCommomSuccessfully()
+    public function testStoreUserCommomSuccess()
     {
 
         $this->assertIsInt($this->repository->store(new User($this->user)));
     }
 
-    public function testStoreUserShopKeeperSuccessfully()
+    public function testStoreUserShopKeeperSuccess()
     {
         $this->user["user_type"] = "S";
         $this->assertIsInt($this->repository->store(new User($this->user)));
@@ -49,26 +49,26 @@ class UserRepositoryTest extends TestCase
         $this->assertTrue($this->repository->exists($user->getDocument(), $user->getEmail()));
     }
 
-    public function testExistUserFailed()
+    public function testExistUserFail()
     {
         $user = new User($this->user);
         $this->assertFalse($this->repository->exists($user->getDocument(), $user->getEmail()));
     }
 
-    public function testFindUserSuccessfully()
+    public function testFindUserSuccess()
     {
         $id_user = $this->repository->store(new User($this->user));
         $this->assertIsObject($this->repository->find($id_user));
     }
 
-    public function testFindUserFailed()
+    public function testFindUserFail()
     {
         $this->expectException(UserException::class);
         $this->expectExceptionMessage('Usuário não encontrado.');
         $this->repository->find(0);
     }
 
-    public function testUpdateUserSuccessfully()
+    public function testUpdateUserSuccess()
     {
         $id = $this->repository->store(new User($this->user));
         $this->user["name"] = "Testando método";
@@ -76,7 +76,7 @@ class UserRepositoryTest extends TestCase
         $this->assertTrue($this->repository->update(new User($this->user)));
     }
 
-    public function testUpdateUserFailed()
+    public function testUpdateUserFail()
     {
         $this->repository->store(new User($this->user));
         $this->user["name"] = "Testando método";

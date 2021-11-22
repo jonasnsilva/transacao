@@ -14,7 +14,7 @@ class AuthorizationServiceTest extends TestCase
         parent::setUp();
     }
 
-    public function testTransactionAuthorizationSuccessfully()
+    public function testTransactionAuthorizationSuccess()
     {
         $this->assertIsBool($this->serviceAuthorization->transactionAuthorization());
     }

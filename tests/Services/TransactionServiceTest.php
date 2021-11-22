@@ -59,7 +59,7 @@ class TransactionServiceTest extends TestCase
     }
 
 
-    public function testStoreTransactionSuccessfully()
+    public function testStoreTransactionSuccess()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));
@@ -69,7 +69,7 @@ class TransactionServiceTest extends TestCase
 
     }
 
-    public function testStoreTransactionWithOutBalanceFailed()
+    public function testStoreTransactionWithOutBalanceFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));
@@ -81,7 +81,7 @@ class TransactionServiceTest extends TestCase
 
     }
 
-    public function testStoreTransactionWithMerchantAsPayerFailed()
+    public function testStoreTransactionWithMerchantAsPayerFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));

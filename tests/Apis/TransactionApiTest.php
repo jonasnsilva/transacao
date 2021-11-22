@@ -59,7 +59,7 @@ class TransactionApiTest extends TestCase
 
         parent::setUp();
     }
-    public function testPerformTransactionSuccessfully()
+    public function testPerformTransactionSuccess()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));
@@ -68,7 +68,7 @@ class TransactionApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_OK);
     }
 
-    public function testRequiredIdPayerPerformTransactionFailed()
+    public function testRequiredIdPayerPerformTransactionFail()
     {
         $id_payee = $this->userService->store(new User($this->payee));
         $this->post('/api/transaction', ['value' => 10, 'id_payee' => $id_payee])
@@ -76,7 +76,7 @@ class TransactionApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredIdPayeePerformTransactionFailed()
+    public function testRequiredIdPayeePerformTransactionFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $this->post('/api/transaction', ['value' => 10, 'id_payer' => $id_payer])
@@ -84,7 +84,7 @@ class TransactionApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testRequiredValuePerformTransactionFailed()
+    public function testRequiredValuePerformTransactionFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));
@@ -93,7 +93,7 @@ class TransactionApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testNegativeValuePerformTransactionFailed()
+    public function testNegativeValuePerformTransactionFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));
@@ -102,7 +102,7 @@ class TransactionApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testPerformTransactionWithOutBalanceFailed()
+    public function testPerformTransactionWithOutBalanceFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));
@@ -111,7 +111,7 @@ class TransactionApiTest extends TestCase
             ->assertResponseStatus(Response::HTTP_BAD_REQUEST);
     }
 
-    public function testPerformTransactionWithMerchantAsPayerFailed()
+    public function testPerformTransactionWithMerchantAsPayerFail()
     {
         $id_payer = $this->userService->store(new User($this->payer));
         $id_payee = $this->userService->store(new User($this->payee));

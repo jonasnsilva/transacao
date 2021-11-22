@@ -12,7 +12,7 @@ class UserServiceTest extends TestCase
 
     use DatabaseTransactions;
 
-    private $user;
+    private array $user;
     private IUserService $userService;
 
     protected function setUp(): void
@@ -33,19 +33,19 @@ class UserServiceTest extends TestCase
     }
 
 
-    public function testStoreUserCommomSuccessfully()
+    public function testStoreUserCommomSuccess()
     {
 
         $this->assertIsInt($this->userService->store(new User($this->user)));
     }
 
-    public function testStoreUserShopKeeperSuccessfully()
+    public function testStoreUserShopKeeperSuccess()
     {
         $this->user["user_type"] = "S";
         $this->assertIsInt($this->userService->store(new User($this->user)));
     }
 
-    public function testStoreUserFailed()
+    public function testStoreUserFail()
     {
 
         $this->expectException(UserException::class);
@@ -54,7 +54,7 @@ class UserServiceTest extends TestCase
         $this->userService->store(new User($this->user));
     }
 
-    public function testFindUserSuccessfully()
+    public function testFindUserSuccess()
     {
 
         $id = $this->userService->store(new User($this->user));
@@ -62,14 +62,14 @@ class UserServiceTest extends TestCase
         $this->assertIsObject($user);
     }
 
-    public function testFindUserFailed()
+    public function testFindUserFail()
     {
         $this->expectException(UserException::class);
         $this->expectExceptionMessage('Usuário não encontrado.');
         $this->userService->find(0);
     }
 
-    public function testUpdateUserSuccessfully()
+    public function testUpdateUserSuccess()
     {
         $id = $this->userService->store(new User($this->user));
         $this->user["name"] = "Testando método";
@@ -77,34 +77,34 @@ class UserServiceTest extends TestCase
         $this->assertTrue($this->userService->update(new User($this->user)));
     }
 
-    public function testUpdateUserFailed()
+    public function testUpdateUserFail()
     {
         $this->userService->store(new User($this->user));
         $this->user["name"] = "Testando método";
         $this->assertFalse($this->userService->update(new User($this->user)));
     }
 
-    public function testAddValueUserSuccessfully()
+    public function testAddValueUserSuccess()
     {
         $id = $this->userService->store(new User($this->user));
         $this->user["id"] = $id;
         $this->assertTrue($this->userService->addValue(new User($this->user), 5));
     }
 
-    public function testAddValueUserFailed()
+    public function testAddValueUserFail()
     {
         $this->userService->store(new User($this->user));
         $this->assertFalse($this->userService->addValue(new User($this->user), 5));
     }
 
-    public function testRemoveValueUserSuccessfully()
+    public function testRemoveValueUserSuccess()
     {
         $id = $this->userService->store(new User($this->user));
         $this->user["id"] = $id;
         $this->assertTrue($this->userService->addValue(new User($this->user), 5));
     }
 
-    public function testRemoveValueUserFailed()
+    public function testRemoveValueUserFail()
     {
         $this->userService->store(new User($this->user));
         $this->assertFalse($this->userService->addValue(new User($this->user), 5));
