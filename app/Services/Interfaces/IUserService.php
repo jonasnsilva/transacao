@@ -11,7 +11,7 @@ interface IUserService
 
     public function store(User $user): int;
 
-    public function find(string $id): User;
+    public function find(int $id): User;
 
     public function update(User $user): bool;
 }

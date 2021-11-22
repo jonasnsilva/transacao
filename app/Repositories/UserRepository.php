@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Exceptions\UserException;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
 use Illuminate\Support\Facades\DB;
@@ -35,9 +36,15 @@ class UserRepository implements IUserRepository
 
     }
 
-    public function find(string $id): ?stdClass
+    public function find(string $id): User
     {
-            return DB::table('user')->find($id);
+        $user = DB::table('user')->find($id);
+        if($user)
+        {
+            return new User((array)$user);
+        } else {
+            throw new UserException('Usuário não encontrado.');
+        }
 
     }
 

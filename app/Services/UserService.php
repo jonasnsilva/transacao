@@ -30,15 +30,9 @@ class UserService implements IUserService
             }
     }
 
-    public function find(string $id): User
+    public function find(int $id): User
     {
-        $user = $this->repository->find($id);
-        if($user)
-        {
-            return new User((array)$user);
-        } else {
-            throw new UserException('Usuário não encontrado.');
-        }
+        return $this->repository->find($id);
     }
 
     public function update(User $user): bool
