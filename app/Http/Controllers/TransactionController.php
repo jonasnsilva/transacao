@@ -60,7 +60,6 @@ class TransactionController extends Controller
             return response()->json(['code' => $ue->getCode(), 'message' => $ue->getMessage()], $ue->getCode());
         } catch (Exception $e)
         {
-            DB::rollBack();
             return response()->json([
                 'code' => Response::HTTP_BAD_REQUEST,
                 'message' => $e->getMessage()
