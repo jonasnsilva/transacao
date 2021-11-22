@@ -3,8 +3,6 @@
 use App\Repositories\AuthorizationRepository;
 use App\Services\AuthorizationService;
 use App\Services\Interfaces\IAuthorizationService;
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class AuthorizationServiceTest extends TestCase
 {
