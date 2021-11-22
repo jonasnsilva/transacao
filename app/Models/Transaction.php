@@ -20,33 +20,25 @@ class Transaction
     }
 
 
-    /**
-     * @return int
-     */
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return float
-     */
+
     public function getValor(): float
     {
         return $this->value;
     }
 
-    /**
-     * @return User
-     */
+
     public function getPayee(): User
     {
         return $this->payee;
     }
 
-    /**
-     * @return User
-     */
+
     public function getPayer(): User
     {
         return $this->payer;

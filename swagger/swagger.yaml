@@ -1,0 +1,207 @@
+swagger: "2.0"
+info:
+  description: "Swagger de duas apis para realizar transação. Api do cadastro de usuário e Api para realizar transação."
+  version: "1.0.0"
+  title: "Transação"
+  contact:
+    email: "contato@jonas.dev.br"
+host: "localhost:8040"
+tags:
+  - name: "Users"
+  - name: "Transactions"
+schemes:
+  - "http"
+paths:
+  /user:
+    post:
+      tags:
+        - "Users"
+      summary: "Cadastrar usuário."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: Usuário cadastrado com sucesso.
+          schema:
+            $ref: "#/definitions/UserRegistred"
+        "400":
+          description: Já existe um usuário com esse documento ou email.
+          schema:
+            $ref: "#/definitions/UserAlreadyRegistered"
+        "422":
+          description: Os dados fornecidos são inválidos.
+          schema:
+            $ref: "#/definitions/InvalidUserFields"
+  /transaction:
+    post:
+      tags:
+        - "Transactions"
+      summary: "Realizar transação."
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
+      responses:
+        "200":
+          description: Transação efetuada com sucesso.
+          schema:
+            $ref: "#/definitions/UserRegistred"
+        "400":
+          description: Pagador não possui saldo suficiente para realizar a transação, Pagador não é do tipo comum ou Transação não autorizada.
+          schema:
+            $ref: "#/definitions/PayerHasNoBalance"
+        "422":
+          description: Os dados fornecidos são inválidos.
+          schema:
+            $ref: "#/definitions/InvalidTransactionFields"
+definitions:
+  User:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      document:
+        type: "string"
+      email:
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+        format: "password"
+
+      user_type:
+        type: string
+        enum:
+          - "C"
+          - "S"
+        description: "C - Commom(Comum), S - ShopKeeper(Lojista)"
+      balance:
+        type: "number"
+        format: "currency"
+        example: 57.50
+  Transaction:
+    type: "object"
+    properties:
+      value:
+        type: "number"
+        format: "currency"
+        example: 100.20
+      id_payer:
+        type: integer
+        example: 1
+      id_payee:
+        type: integer
+        example: 2
+
+  UserRegistred:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 201
+      message:
+        type: string
+        example: "Usuário cadastrado com sucesso."
+  UserAlreadyRegistered:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 400
+      message:
+        type: string
+        example: "Já existe um usuário com esse documento ou email."
+  InvalidUserFields:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 422
+      message:
+        type: string
+        example: "Os dados fornecidos são inválidos."
+      errors:
+        properties:
+          name:
+            type: array
+            items:
+              type: string
+              example: "O campo name é obrigatório."
+          email:
+            type: array
+            items:
+              type: string
+              example: "O campo email é obrigatório."
+          password:
+            type: array
+            items:
+              type: string
+              example: "O campo password é obrigatório."
+          balance:
+            type: array
+            items:
+              type: string
+              example: "O campo balance é obrigatório."
+          user_type:
+              type: array
+              items:
+                type: string
+                example: "O campo user type é obrigatório."
+          document:
+            type: array
+            items:
+              type: string
+              example: "O campo document é obrigatório."
+  PayerHasNoBalance:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 400
+      message:
+        type: string
+        example: "Pagador não possui saldo suficiente para realizar a transação."
+  InvalidTransactionFields:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 422
+      message:
+        type: string
+        example: "Os dados fornecidos são inválidos."
+      errors:
+        properties:
+          value:
+            type: array
+            items:
+              type: string
+              example: "O campo value é obrigatório."
+          id_payer:
+            type: array
+            items:
+              type: string
+              example: "O campo id payer é obrigatório."
+          id_payee:
+            type: array
+            items:
+              type: string
+              example: "O campo id payee é obrigatório."
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

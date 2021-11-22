@@ -26,50 +26,37 @@ class Notification
     }
 
 
-    /**
-     * @return int
-     */
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
 
-    /**
-     * @return string
-     */
+
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @return string
-     */
+
     public function getSend(): string
     {
         return $this->send;
     }
 
-    /**
-     * @return string
-     */
+
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
+
     public function getMessage(): string
     {
         return $this->message;
