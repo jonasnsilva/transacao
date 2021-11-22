@@ -1,24 +1,31 @@
-# Lumen PHP Framework
+# Api para realização de cadastro de usuários do tipo Comum e Lojista e efetuar transações.
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+Tem o objeto de demonstrar o funcionamento da api em RESTFul com consulta de serviço externo para concluir a transação
+e consulta de serviço externo para enviar a notificação sendo que caso ao enviar a notificação o serviço esteja 
+com inconsistencia será enviado para uma fila que tentara enviar a notificação novamente.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-## Official Documentation
+### Tecnologias utilizadas:
+- PHP na versão 7.4.
+- Framework Lumen na versão 8.1.
+- Banco de dados MySQL na versão 8.0.
+- Docker.
+- Docker-compose.
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+### Requisitos para rodar o projeto na máquina:
+- Make.
+- Docker.
+- Docker-compose
 
-## Contributing
+### Instruções de Uso:
+- Executar o comando **make start**.
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Após a conclusão de todo o processo, o projeto vai está rodando em http://localhost:8040.
 
-## Security Vulnerabilities
+### Observações:
+- Executar o comando **make test** para executar os testes.
+- Executar o comando **make stop** para parar a execução do serviço.
+- Clique [aqui](https://github.com/jonasnsilva/transacao/blob/master/swagger/swagger.yaml) para acessar a documentação das api's com swagger: 
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
